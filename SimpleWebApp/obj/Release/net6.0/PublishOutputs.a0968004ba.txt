@@ -1,0 +1,7 @@
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\SimpleWebApp.exe
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\appsettings.Development.json
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\appsettings.json
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\SimpleWebApp.dll
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\SimpleWebApp.deps.json
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\SimpleWebApp.runtimeconfig.json
+C:\Users\abs12\Desktop\SimpleWebAppDS\SimpleWebApp\obj\Release\net6.0\PubTmp\Out\SimpleWebApp.pdb
