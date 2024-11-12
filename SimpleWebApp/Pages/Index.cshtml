@@ -1,0 +1,19 @@
+﻿
+
+@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome to My Simple Web App!</h1>
+    <p>This is a basic .NET web application deployed on Azure using CI/CD.</p>
+    <button onclick="showMessage()">Click me!</button>
+</div>
+
+<script>
+    function showMessage() {
+        alert('Hello from your web app!');
+    }
+</script>
