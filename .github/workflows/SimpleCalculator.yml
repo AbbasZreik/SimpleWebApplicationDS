@@ -3,7 +3,7 @@ name: Build, Test, and Deploy .NET Core to Azure
 on:
   push:
     branches:
-    - main
+      - main
 
 env:
   AZURE_WEBAPP_NAME: SimpleCalculator
@@ -11,40 +11,47 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
   WORKING_DIRECTORY: .
-  
+
 jobs:
   build_and_deploy:
-    runs-on: windows-latest  # You can change this to windows-latest if you need Windows
+    runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Setup .NET SDK
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
-      run: dotnet restore --verbosity detailed
-    - name: Build project
-      run: dotnet build --no-restore
-    - name: Run tests
-      run: dotnet test
-    - name: Publish project
-      run: dotnet publish --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    - name: Publish Artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - name: Check out code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: ${{ env.DOTNET_CORE_VERSION }}
+
+      - name: Build project
+        run: dotnet build --no-restore --configuration ${{ env.CONFIGURATION }}
+
+      - name: Run tests
+        run: dotnet test --no-build
+
+      - name: Publish project
+        run: dotnet publish --configuration ${{ env.CONFIGURATION }} --no-build --output ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: webapp
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
   deploy:
     runs-on: windows-latest
     needs: build_and_deploy
     steps:
-    - name: Download artifact from build job
-      uses: actions/download-artifact@v3
-      with:
-        name: webapp
-        path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
-    - name: Deploy to Azure WebApp
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ env.AZURE_WEBAPP_NAME }}
-        publish-profile: ${{ secrets.SimpleCalculator_9FC0 }}
-        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v3
+        with:
+          name: webapp
+          path: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+
+      - name: Deploy to Azure WebApp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
+          publish-profile: ${{ secrets.SimpleCalculator_9FC0 }}
+          package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
